@@ -22,9 +22,18 @@ public class PlayerMovements : MonoBehaviour
     void Update()
     {
         float input = -Input.GetAxis("Horizontal");
+        float targetAngle = input * maxTurnAngle;
 
-        float side = currentAngle > input * maxTurnAngle ? -1 : 1;
-        currentAngle = Mathf.Clamp(currentAngle + side * Time.deltaTime * turnSpeed, -maxTurnAngle, maxTurnAngle);
+        if (Mathf.Abs(targetAngle - currentAngle) >= 0.1)
+        {
+            float side = currentAngle > targetAngle ? -1 : 1;
+            currentAngle = Mathf.Clamp(currentAngle + side * Time.deltaTime * turnSpeed, -maxTurnAngle, maxTurnAngle);
+        }
+        else
+        {
+            currentAngle = targetAngle;
+        }
+
 
         cameraRoot.rotation = Quaternion.Euler(0, 90, currentAngle);
         cameraRoot.position = new Vector3(
