@@ -6,8 +6,10 @@ using WiimoteApi;
 
 public class TestWiimote : MonoBehaviour
 {
-    Wiimote wiimote;
-    // Start is called before the first frame update
+    private Wiimote wiimote;
+    [SerializeField] private RectTransform ir_pointer;
+
+
     void Start()
     {
         WiimoteManager.FindWiimotes();
@@ -15,9 +17,11 @@ public class TestWiimote : MonoBehaviour
         wiimote.SendPlayerLED(true, false, false, false);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-
+        float[] pointer = wiimote.Ir.GetPointingPosition();
+        ir_pointer.anchorMin = new Vector2(pointer[0], pointer[1]);
+        ir_pointer.anchorMax = new Vector2(pointer[0], pointer[1]);
     }
 }
