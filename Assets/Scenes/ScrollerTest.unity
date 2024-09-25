@@ -340,6 +340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointer: {fileID: 2013935871}
+  fireLength: 0.1
 --- !u!4 &394525794
 Transform:
   m_ObjectHideFlags: 0

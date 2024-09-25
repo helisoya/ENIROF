@@ -74,11 +74,9 @@ public class WiiDevice : InputDevice, IInputUpdateCallbackReceiver
     protected override void FinishSetup()
     {
         base.FinishSetup();
-        WiimoteManager.FindWiimotes();
-        if (WiimoteManager.Wiimotes.Count > 0)
-        {
-            wiimote = WiimoteManager.Wiimotes[0];
-        }
+
+        wiimote = WiimoteManager.Wiimotes[0];
+        wiimote.SetupIRCamera(IRDataType.BASIC);
 
         buttonB = GetChildControl<ButtonControl>("ButtonB");
         buttonA = GetChildControl<ButtonControl>("ButtonA");
@@ -95,6 +93,11 @@ public class WiiDevice : InputDevice, IInputUpdateCallbackReceiver
     static WiiDevice()
     {
         InputSystem.RegisterLayout<WiiDevice>();
-        InputSystem.AddDevice<WiiDevice>();
+
+        WiimoteManager.FindWiimotes();
+        if (WiimoteManager.Wiimotes.Count > 0)
+        {
+            InputSystem.AddDevice<WiiDevice>();
+        }
     }
 }

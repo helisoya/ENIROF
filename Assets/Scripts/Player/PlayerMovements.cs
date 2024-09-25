@@ -26,6 +26,8 @@ public class PlayerMovements : MonoBehaviour
         input = -inputValue.Get<Vector2>().x;
     }
 
+
+
     void Update()
     {
         float targetAngle = input * maxTurnAngle;
