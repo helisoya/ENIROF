@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private RectTransform pointer;
     [SerializeField] private float fireLength;
     private float fireStart;
-    [SerializeField] private RectTransform Felix;
+    [SerializeField] private EnemiesManager enemiesManager;
     private Image sprite;
     private Wiimote wiimote;
     private bool isFiring;
@@ -88,8 +88,7 @@ public class PlayerController : MonoBehaviour
         if (wiimote != null)
             SetRumble(true);
 
-        if(RectTransformUtility.RectangleContainsScreenPoint(Felix, pointer.position, null))
-            Destroy(Felix.gameObject);
+        enemiesManager.ProcessFire(pointer.position);
 
         sprite.color = Color.red;
         fireStart = Time.time;
