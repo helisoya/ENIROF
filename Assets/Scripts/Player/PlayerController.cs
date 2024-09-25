@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using WiimoteApi;
+using Color = UnityEngine.Color;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private RectTransform pointer;
     [SerializeField] private float fireLength;
     private float fireStart;
+    [SerializeField] private RectTransform Felix;
     private Image sprite;
     private Wiimote wiimote;
-    private bool fired;
-
+    private bool isFiring;
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,22 +23,21 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        WiimoteManager.FindWiimotes();
         if (WiimoteManager.Wiimotes.Count > 0)
         {
             wiimote = WiimoteManager.Wiimotes[0];
+            wiimote.SetupIRCamera(IRDataType.BASIC);
         }
     }
     void Update()
     {
-        if (fired && Time.time - fireStart >= fireLength)
+        if (isFiring && Time.time - fireStart >= fireLength)
         {
-            fired = false;
+            isFiring = false;
             sprite.color = Color.green;
             if (wiimote != null)
-            {
-                wiimote.RumbleOn = false;
-                wiimote.SendPlayerLED(true, false, false, false);
-            }
+                SetRumble(false);
         }
 
         if (wiimote != null)
@@ -45,13 +46,23 @@ public class PlayerController : MonoBehaviour
             float[] pointerCoo = wiimote.Ir.GetPointingPosition();
             SetPointerPosition(new Vector2(pointerCoo[0], pointerCoo[1]));
 
-            if (wiimote.Button.b && !fired)
-            {
+            if (wiimote.Button.b && !isFiring)
                 Fire();
-            }
         }
+    }
 
+    void SetPointerPosition(Vector2 position)
+    {
+        pointer.anchorMin = position;   
+        pointer.anchorMax = position;
+    }
 
+    void SetRumble(bool rumble)
+    {
+        if (rumble == wiimote.RumbleOn) return;
+
+        wiimote.RumbleOn = rumble;
+        wiimote.SendPlayerLED(true, false, false, false);
     }
 
     void OnPointer(InputValue inputValue)
@@ -65,15 +76,9 @@ public class PlayerController : MonoBehaviour
         SetPointerPosition(vec);
     }
 
-    void SetPointerPosition(Vector2 position)
-    {
-        pointer.anchorMin = new Vector2(position.x, position.y);
-        pointer.anchorMax = new Vector2(position.x, position.y);
-    }
-
     void OnFire(InputValue inputValue)
     {
-        if (wiimote != null || fired) return;
+        if (wiimote != null || isFiring) return;
 
         Fire();
     }
@@ -81,13 +86,13 @@ public class PlayerController : MonoBehaviour
     void Fire()
     {
         if (wiimote != null)
-        {
-            wiimote.RumbleOn = true;
-            wiimote.SendPlayerLED(true, false, false, false);
-        }
+            SetRumble(true);
+
+        if(RectTransformUtility.RectangleContainsScreenPoint(Felix, pointer.position, null))
+            Destroy(Felix.gameObject);
 
         sprite.color = Color.red;
         fireStart = Time.time;
-        fired = true;
+        isFiring = true;
     }
 }
