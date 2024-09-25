@@ -21,6 +21,7 @@ public class TestWiimote : MonoBehaviour
     void Update()
     {
         float[] pointer = wiimote.Ir.GetPointingPosition();
+        print(pointer);
         ir_pointer.anchorMin = new Vector2(pointer[0], pointer[1]);
         ir_pointer.anchorMax = new Vector2(pointer[0], pointer[1]);
     }

@@ -14,7 +14,6 @@ public class ScrollerManager : MonoBehaviour
     [SerializeField] private int maxBlocks;
     [SerializeField] private float curveStrength;
     private Vector3 direction = new Vector3(-1, 0, 0);
-    private int lastIdx = 0;
 
     void Start()
     {
@@ -25,6 +24,7 @@ public class ScrollerManager : MonoBehaviour
         {
             blocks[i] = Instantiate(prefabBlock, new Vector3(position, 0, 0), Quaternion.identity, transform);
             blocks[i].gameObject.SetActive(true);
+            blocks[i].SetCurveValue(position / 200 / maxBlocks * curveStrength);
             position += blockLength;
         }
     }

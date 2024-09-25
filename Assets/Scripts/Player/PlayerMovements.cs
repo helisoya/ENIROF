@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovements : MonoBehaviour
 {
@@ -13,15 +14,20 @@ public class PlayerMovements : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private Transform cameraRoot;
+    private float input;
 
     void Awake()
     {
         currentAngle = 0f;
     }
 
+    void OnMove(InputValue inputValue)
+    {
+        input = -inputValue.Get<Vector2>().x;
+    }
+
     void Update()
     {
-        float input = -Input.GetAxis("Horizontal");
         float targetAngle = input * maxTurnAngle;
 
         if (Mathf.Abs(targetAngle - currentAngle) >= 0.1)
