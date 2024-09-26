@@ -7,7 +7,7 @@ public class EnemiesManager : MonoBehaviour
 {
     [SerializeField] private Enemy enemyPrefab; // Le prefab de l'ennemi (RectTransform)
     [SerializeField] private float spawnInterval = 5f; // Intervalle de spawn en secondes
-    private Canvas canvas; // Le transform du Canvas parent
+    [SerializeField] private Canvas canvas; // Le transform du Canvas parent
 
     private float timeSinceLastSpawn;
     private List<Enemy> enemies;
@@ -16,7 +16,6 @@ public class EnemiesManager : MonoBehaviour
     void Start()
     {
         enemies = new List<Enemy>();
-        canvas = FindAnyObjectByType<Canvas>();
         timeSinceLastSpawn = 0f;
     }
 
@@ -37,24 +36,24 @@ public class EnemiesManager : MonoBehaviour
         // Instancier l'ennemi dans le Canvas
         Enemy enemyInstance = Instantiate(enemyPrefab, canvas.GetComponent<RectTransform>());
 
-        // Déplacer l'instance au début des enfants du RectTransform
+        // Dï¿½placer l'instance au dï¿½but des enfants du RectTransform
         enemyInstance.transform.SetSiblingIndex(0);
 
-        // Ajouter l'ennemi à la liste
+        // Ajouter l'ennemi ï¿½ la liste
         enemies.Add(enemyInstance);
 
-        // Récupérer le RectTransform de l'ennemi
+        // Rï¿½cupï¿½rer le RectTransform de l'ennemi
         RectTransform enemyRectTransform = enemyInstance.GetComponent<RectTransform>();
 
-        // Appliquer la position à l'ennemi
-        enemyRectTransform.anchoredPosition = new Vector2(0.0f,0.0f);
+        // Appliquer la position ï¿½ l'ennemi
+        enemyRectTransform.anchoredPosition = new Vector2(0.0f, 0.0f);
     }
 
     public void ProcessFire(Vector2 pointerPos)
     {
         foreach (Enemy enemy in enemies)
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(enemy.GetComponent<RectTransform>(), pointerPos, null)) // Condition pour détruire
+            if (RectTransformUtility.RectangleContainsScreenPoint(enemy.GetComponent<RectTransform>(), pointerPos, null)) // Condition pour dï¿½truire
             {
                 DestroyChildEnemy(enemy);
                 break;
@@ -65,6 +64,6 @@ public class EnemiesManager : MonoBehaviour
     public void DestroyChildEnemy(Enemy enemy)
     {
         enemies.Remove(enemy); // Retirer de la liste
-        Destroy(enemy.gameObject); // Détruire l'objet
+        Destroy(enemy.gameObject); // Dï¿½truire l'objet
     }
 }

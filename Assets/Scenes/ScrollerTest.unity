@@ -321,7 +321,7 @@ RectTransform:
   - {fileID: 2024958603}
   - {fileID: 1808323055}
   - {fileID: 533154290}
-  m_Father: {fileID: 334287955}
+  m_Father: {fileID: 474258487}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -699,6 +699,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 4507390687511514236, guid: 699d6f0d8415b5a4a914a80c3bdb9542,
     type: 3}
   spawnInterval: 1
+  canvas: {fileID: 334287958}
 --- !u!4 &298752908
 Transform:
   m_ObjectHideFlags: 0
@@ -746,8 +747,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2013935871}
-  - {fileID: 142199350}
-  - {fileID: 660270126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -100.348, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1252,7 +1251,7 @@ RectTransform:
   m_Children:
   - {fileID: 697786323}
   - {fileID: 239032456}
-  m_Father: {fileID: 334287955}
+  m_Father: {fileID: 474258487}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
