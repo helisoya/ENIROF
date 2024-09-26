@@ -5,33 +5,31 @@ using UnityEngine;
 public class ScrollerManager : MonoBehaviour
 {
     [Header("Components")]
-    [SerializeField] private RoadBlock prefabBlock;
-    private RoadBlock[] blocks;
+    [SerializeField] private Transform prefabBlock;
+    private Transform[] blocks;
 
     [Header("Infos")]
     [SerializeField] private float scrollSpeed;
     [SerializeField] private float blockLength;
     [SerializeField] private int maxBlocks;
-    [SerializeField] private float curveStrength;
     private Vector3 direction = new Vector3(-1, 0, 0);
 
     void Start()
     {
-        blocks = new RoadBlock[maxBlocks];
+        blocks = new Transform[maxBlocks];
 
         float position = -blockLength;
         for (int i = 0; i < maxBlocks; i++)
         {
             blocks[i] = Instantiate(prefabBlock, new Vector3(position, 0, 0), Quaternion.identity, transform);
             blocks[i].gameObject.SetActive(true);
-            blocks[i].SetCurveValue(position / 200 / maxBlocks * curveStrength);
             position += blockLength;
         }
     }
 
     void Update()
     {
-        RoadBlock child;
+        Transform child;
         for (int i = 0; i < blocks.Length; i++)
         {
             child = blocks[i];
@@ -40,16 +38,7 @@ public class ScrollerManager : MonoBehaviour
             {
                 child.transform.position += new Vector3(maxBlocks * blockLength, 0, 0);
             }
-
-            int number = (int)(child.transform.position.x / 200);
-
-            if (number > 0)
-            {
-                child.SetCurveValue(number / (float)maxBlocks * curveStrength);
-            }
-
         }
     }
-
 }
 

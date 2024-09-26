@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +12,8 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float maxZPosition;
     private float currentAngle;
+    private bool firingFront;
+
 
     [Header("Components")]
     [SerializeField] private Transform cameraRoot;
@@ -18,12 +21,21 @@ public class PlayerMovements : MonoBehaviour
 
     void Awake()
     {
+        firingFront = true;
         currentAngle = 0f;
     }
 
     void OnMove(InputValue inputValue)
     {
-        input = -inputValue.Get<Vector2>().x;
+        Vector2 inputVec = inputValue.Get<Vector2>();
+        input = -inputVec.x;
+
+        if ((firingFront && inputVec.y <= -0.9f) ||
+            (!firingFront && inputVec.y >= 0.9f))
+        {
+            firingFront = !firingFront;
+            print("Toggle Firing");
+        }
     }
 
 
