@@ -50,13 +50,14 @@ public class Player : MonoBehaviour
     {
         health = Mathf.Clamp(health - 1, 0, maxHealth);
         ResetMult();
-        GameManager.instance.SetCurrentScrollerSpeed(0.5f);
+        ScrollerManager.instance.SetCurrentSpeed(0.5f);
         GameGUI.instance.SetHealthBarFill(health, maxHealth);
         animator.SetTrigger("Damage");
 
         if (health == 0)
         {
-            print("You are dead");
+            GameManager.instance.SetCurrentScore(score);
+            GameManager.instance.GoToEndScene();
         }
     }
 }

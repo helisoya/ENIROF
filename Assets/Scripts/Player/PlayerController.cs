@@ -15,14 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private EnemiesManager enemiesManager;
     private float fireStart;
     private float fireStop;
-    private Image sprite;
     private Wiimote wiimote;
     private bool isFiring;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        sprite = pointer.GetComponent<Image>();
-    }
+
     void Start()
     {
         WiimoteManager.FindWiimotes();
@@ -38,7 +33,7 @@ public class PlayerController : MonoBehaviour
         {
             isFiring = false;
             fireStop = Time.time;
-            sprite.color = Color.green;
+            GameGUI.instance.SetPointerColor(Color.green);
             if (wiimote != null)
                 SetRumble(false);
         }
@@ -56,8 +51,7 @@ public class PlayerController : MonoBehaviour
 
     void SetPointerPosition(Vector2 position)
     {
-        pointer.anchorMin = position;   
-        pointer.anchorMax = position;
+        GameGUI.instance.SetPointerPosition(position);
     }
 
     void SetRumble(bool rumble)
@@ -93,7 +87,7 @@ public class PlayerController : MonoBehaviour
 
         enemiesManager.ProcessFire(pointer.position);
 
-        sprite.color = Color.red;
+        GameGUI.instance.SetPointerColor(Color.red);
         fireStart = Time.time;
         isFiring = true;
     }
