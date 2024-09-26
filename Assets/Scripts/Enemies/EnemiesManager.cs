@@ -75,9 +75,14 @@ public class EnemiesManager : MonoBehaviour
 
         if (timeSinceLastSpawn >= spawnInterval)
         {
-            SpawnEnemy(EnemyType.BasicEye);
+            SpawnEnemy(EnemyType.TriangleEye);
             timeSinceLastSpawn = 0f;
         }
+    }
+
+    private EnemyType GetRandomEnemyType()
+    {
+        return (EnemyType)UnityEngine.Random.Range(0, enemyPrefabs.Length);
     }
 
     void SpawnEnemy(EnemyType enemyType = EnemyType.BasicEye)
@@ -87,6 +92,8 @@ public class EnemiesManager : MonoBehaviour
 
         // Ajouter l'ennemi a la liste
         enemies.Add(enemyInstance);
+
+        enemyInstance.transform.position = enemyInstance.SpawPoint;
     }
 
     public void ProcessFire(Vector2 pointerPos)
@@ -107,7 +114,5 @@ public class EnemiesManager : MonoBehaviour
     {
         enemies.Remove(enemy); // Retirer de la liste
         Destroy(enemy.gameObject); // Detruire l'objet
-
-
     }
 }

@@ -7,13 +7,20 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float speed;
     [SerializeField] protected float stationnaryDelay;
     [SerializeField] protected Rect bounds;
+    [SerializeField] protected bool onFront = true;
+    [SerializeField] protected Vector3 spawPoint;
+    protected Animator animator;
     protected float speedFactor;
     protected Vector2 destination;
     protected bool waitNewDirection;
     protected EnemiesManager enemiesManager;
+
+    public Vector3 SpawPoint { get => spawPoint; }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        animator = GetComponent<Animator>();
         enemiesManager = FindAnyObjectByType<EnemiesManager>();
         waitNewDirection = false;
         speedFactor = 0.5f;
@@ -23,10 +30,10 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        transform.position += ScrollerManager.instance.GetCurrentScrollSpeed() / speedFactor * Time.deltaTime * Vector3.left;
+        transform.position += ScrollerManager.instance.GetCurrentScrollSpeed() / speedFactor * Time.deltaTime * (onFront?Vector3.left:Vector3.right);
         speedFactor += Time.deltaTime * 0.425f;
 
-        if (transform.position.x <= 0)
+        if (onFront ? transform.position.x <= 0 : transform.position.x >= 0)
         {
             Player.instance.TakeDamage();
             enemiesManager.DestroyChildEnemy(this);
@@ -53,13 +60,12 @@ public class Enemy : MonoBehaviour
     }
     protected virtual void CalculateNewDestination()
     {
-        Debug.Log("newpos");
         destination = new Vector2(
             Random.Range(
                 -bounds.width / 2.0f,
                 bounds.width / 2.0f),
             Random.Range(
-                -bounds.height / 2.0f,
+                0.0f,
                 bounds.height / 2.0f));
     }
 }

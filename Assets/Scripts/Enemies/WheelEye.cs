@@ -10,6 +10,6 @@ public class WheelEye : Enemy
             Random.Range(
                 -bounds.width / 2.0f,
                 bounds.width / 2.0f),
-            0.0f);
+            spawPoint.y);
     }
 }
