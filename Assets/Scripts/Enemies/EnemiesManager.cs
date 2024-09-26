@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemiesManager : MonoBehaviour
 {
-    enum EnemyType { BasicEye,WheelEye,TriangleEye,LongEye,Anomaly }
+    enum EnemyType { BasicEye, WheelEye, TriangleEye, LongEye, Anomaly }
 
     [SerializeField] private BasicEye basicEyePrefab;
     [SerializeField] private WheelEye wheelEyePrefab;
@@ -20,7 +20,7 @@ public class EnemiesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyPrefabs = new Enemy[]{ basicEyePrefab, wheelEyePrefab };
+        enemyPrefabs = new Enemy[] { basicEyePrefab, wheelEyePrefab };
         enemies = new List<Enemy>();
         timeSinceLastSpawn = 0f;
     }
@@ -41,7 +41,7 @@ public class EnemiesManager : MonoBehaviour
     {
         // Choisir le bon canvas en foncion du type d'ennemi
         Canvas canvas = frontCanvas;
-        if(enemyType == EnemyType.WheelEye)
+        if (enemyType == EnemyType.WheelEye)
             canvas = backCanvas;
 
         // Instancier l'ennemi dans le Canvas
@@ -69,6 +69,7 @@ public class EnemiesManager : MonoBehaviour
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(enemy.GetComponent<RectTransform>(), pointerPos, null)) // Condition pour detruire
             {
+                Player.instance.AddScore(10);
                 DestroyChildEnemy(enemy);
                 break;
             }

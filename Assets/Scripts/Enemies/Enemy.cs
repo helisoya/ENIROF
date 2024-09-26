@@ -28,11 +28,15 @@ public class Enemy : MonoBehaviour
     {
         // Calculer un facteur logarithmique
         float logFactor = Mathf.Log10(1 + zoomSpeed * Time.deltaTime);
-        // Appliquer la mise à l'échelle logarithmique
+        // Appliquer la mise ï¿½ l'ï¿½chelle logarithmique
         rectTransform.localScale += Vector3.one * logFactor;
 
         if (rectTransform.localScale.x > maxScale)
+        {
+            Player.instance.TakeDamage();
             enemiesManager.DestroyChildEnemy(this);
+        }
+
         if (waitNewDirection) return;
 
         if (rectTransform.anchoredPosition.Equals(destination))
