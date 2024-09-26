@@ -1201,6 +1201,7 @@ MonoBehaviour:
   maxHealth: 5
   body: {fileID: 761062900}
   animator: {fileID: 1335630516}
+  waitTimeLength: 3
 --- !u!1 &652716551
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c70220fc3aea70b44ba5bdfe2560ce5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 5
+  baseCooldown: 5
   obstaclePrefab: {fileID: 5399062430285695243, guid: 3c964cc1d310e6748b9e4ede49fa6305,
     type: 3}
   sprites:

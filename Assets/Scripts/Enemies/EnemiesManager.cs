@@ -34,6 +34,8 @@ public class EnemiesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Player.instance.waitingStart) return;
+
         timeSinceLastSpawn += Time.deltaTime;
 
         if (timeSinceLastSpawn >= spawnInterval)

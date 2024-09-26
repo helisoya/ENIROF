@@ -11,6 +11,12 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private Transform body;
     [SerializeField] private Animator animator;
+
+    [Header("Start Timer")]
+    [SerializeField] private float waitTimeLength;
+    private float startWaitTime;
+    public bool waitingStart { get; private set; }
+
     private int score;
     private int health;
     private int currentMult;
@@ -21,6 +27,20 @@ public class Player : MonoBehaviour
         health = maxHealth;
         currentMult = 0;
         score = 0;
+    }
+
+    void Start()
+    {
+        startWaitTime = Time.time;
+        waitingStart = true;
+    }
+
+    void Update()
+    {
+        if (waitingStart && Time.time - startWaitTime >= waitTimeLength)
+        {
+            waitingStart = false;
+        }
     }
 
     public float GetBodyZ()

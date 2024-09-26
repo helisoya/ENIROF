@@ -48,6 +48,8 @@ public class ScrollerManager : MonoBehaviour
 
     void Update()
     {
+        if (Player.instance.waitingStart) return;
+
         if (currentScrollSpeed <= scrollSpeed)
         {
             currentScrollSpeed += accelSpeed * Time.deltaTime;

@@ -27,6 +27,8 @@ public class ObstacleManager : MonoBehaviour
 
     void Update()
     {
+        if (Player.instance.waitingStart) return;
+
         cooldown = baseCooldown * ComputeCooldownScale();
 
         if (Time.time - cooldownStart >= cooldown)
