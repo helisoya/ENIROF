@@ -8,8 +8,8 @@ public class WheelEye : Enemy
     {
         destination = new Vector2(
             Random.Range(
-                -canvas.renderingDisplaySize.x / 2.2f,
-                canvas.renderingDisplaySize.x / 2.2f),
-            rectTransform.anchoredPosition.y);
+                -bounds.width / 2.0f,
+                bounds.width / 2.0f),
+            0.0f);
     }
 }

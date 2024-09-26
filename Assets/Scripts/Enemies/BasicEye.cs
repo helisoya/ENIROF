@@ -7,10 +7,10 @@ public class BasicEye : Enemy
     {
         destination = new Vector2(
             Random.Range(
-                -canvas.renderingDisplaySize.x/2.2f,
-                canvas.renderingDisplaySize.x/2.2f),
+                -bounds.width / 2.0f,
+                bounds.width / 2.0f),
             Random.Range(
-                canvas.renderingDisplaySize.y /16.0f,
-                canvas.renderingDisplaySize.y/2.0f));
+                0.0f,
+                bounds.height / 2.0f));
     }
 }

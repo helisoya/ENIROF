@@ -13,11 +13,13 @@ public class PlayerMovements : MonoBehaviour
     [SerializeField] private float maxZPosition;
     private float currentAngle;
     private bool firingFront;
+    public bool FiringFront { get => firingFront; }
 
 
     [Header("Components")]
     [SerializeField] private Transform cameraRoot;
     private float input;
+
 
     void Awake()
     {
