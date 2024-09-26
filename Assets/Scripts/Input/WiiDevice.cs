@@ -11,7 +11,7 @@ using UnityEngine.InputSystem.Controls;
 using WiimoteApi;
 using System;
 
-
+/*
 public struct WiiState : IInputStateTypeInfo
 {
 
@@ -100,4 +100,4 @@ public class WiiDevice : InputDevice, IInputUpdateCallbackReceiver
             InputSystem.AddDevice<WiiDevice>();
         }
     }
-}
+}*/

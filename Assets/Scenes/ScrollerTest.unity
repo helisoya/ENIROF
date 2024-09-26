@@ -313,7 +313,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142199349}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -321,7 +321,7 @@ RectTransform:
   - {fileID: 2024958603}
   - {fileID: 1808323055}
   - {fileID: 533154290}
-  m_Father: {fileID: 474258487}
+  m_Father: {fileID: 334287955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -667,6 +667,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &298752906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 298752908}
+  - component: {fileID: 298752907}
+  m_Layer: 0
+  m_Name: EnemiesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &298752907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298752906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7cf8d444316d0e49bf1cf6246325034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 4507390687511514236, guid: 699d6f0d8415b5a4a914a80c3bdb9542,
+    type: 3}
+  spawnInterval: 1
+--- !u!4 &298752908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298752906}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 106.619064, y: 211.3116, z: 53.04193}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &334287954
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +746,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2013935871}
+  - {fileID: 142199350}
+  - {fileID: 660270126}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -100.348, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -802,6 +851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointer: {fileID: 2013935871}
   fireLength: 0.1
+  enemiesManager: {fileID: 298752907}
 --- !u!4 &394525794
 Transform:
   m_ObjectHideFlags: 0
@@ -1195,14 +1245,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 660270125}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 697786323}
   - {fileID: 239032456}
-  m_Father: {fileID: 474258487}
+  m_Father: {fileID: 334287955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -3021,7 +3071,7 @@ PrefabInstance:
     - target: {fileID: 3952318803461895726, guid: e2abfcd548814d1409de137cca44d24e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3952318803461895726, guid: e2abfcd548814d1409de137cca44d24e,
         type: 3}
@@ -3048,6 +3098,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pointer
       objectReference: {fileID: 0}
+    - target: {fileID: 6387020891653901461, guid: e2abfcd548814d1409de137cca44d24e,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 26321210bd68b5741a7b517cbfb59f16,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3528,3 +3584,4 @@ SceneRoots:
   - {fileID: 211979531}
   - {fileID: 474258487}
   - {fileID: 1363741180}
+  - {fileID: 298752908}
