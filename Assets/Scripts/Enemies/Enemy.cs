@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float speed;
     [SerializeField] protected float zoomSpeed;
     [SerializeField] protected float maxScale;
-    [SerializeField] private float stationnaryDelay;
+    [SerializeField] protected float stationnaryDelay;
     protected Vector2 destination;
     protected bool waitNewDirection;
     protected RectTransform rectTransform;
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     {
         // Calculer un facteur logarithmique
         float logFactor = Mathf.Log10(1 + zoomSpeed * Time.deltaTime);
-        // Appliquer la mise � l'�chelle logarithmique
+        // Appliquer la mise a l'echelle logarithmique
         rectTransform.localScale += Vector3.one * logFactor;
 
         if (rectTransform.localScale.x > maxScale)
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         rectTransform.anchoredPosition = Vector2.MoveTowards(rectTransform.anchoredPosition, destination, speed);
     }
 
-    protected IEnumerator NewDirection()
+    protected virtual IEnumerator NewDirection()
     {
         waitNewDirection = true;
 

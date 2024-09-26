@@ -9,6 +9,7 @@ public class EnemiesManager : MonoBehaviour
 
     [SerializeField] private BasicEye basicEyePrefab;
     [SerializeField] private WheelEye wheelEyePrefab;
+    [SerializeField] private TriangleEye triangleEyePrefab;
     [SerializeField] private float spawnInterval = 5f; // Intervalle de spawn en secondes
     [SerializeField] private Canvas frontCanvas; // Le Canvas avant
     [SerializeField] private Canvas backCanvas; // Le Canvas arriere
@@ -20,7 +21,12 @@ public class EnemiesManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyPrefabs = new Enemy[] { basicEyePrefab, wheelEyePrefab };
+        enemyPrefabs = new Enemy[]
+        {
+            basicEyePrefab,
+            wheelEyePrefab,
+            triangleEyePrefab
+        };
         enemies = new List<Enemy>();
         timeSinceLastSpawn = 0f;
     }
@@ -32,7 +38,7 @@ public class EnemiesManager : MonoBehaviour
 
         if (timeSinceLastSpawn >= spawnInterval)
         {
-            SpawnEnemy(EnemyType.WheelEye);
+            SpawnEnemy(EnemyType.TriangleEye);
             timeSinceLastSpawn = 0f;
         }
     }

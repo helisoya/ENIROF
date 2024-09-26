@@ -10,8 +10,6 @@ using Color = UnityEngine.Color;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private RectTransform pointer;
-    [SerializeField] private Canvas canvasFront;
-    [SerializeField] private Canvas canvasBack;
     [SerializeField] private float fireLength;
     [SerializeField] private float fireCoolDown;
     [SerializeField] private EnemiesManager enemiesManager;
