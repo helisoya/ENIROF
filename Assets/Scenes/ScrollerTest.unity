@@ -1266,7 +1266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c70220fc3aea70b44ba5bdfe2560ce5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 5
+  baseCooldown: 5
   obstaclePrefab: {fileID: 5399062430285695243, guid: 3c964cc1d310e6748b9e4ede49fa6305,
     type: 3}
   sprites:
@@ -3519,9 +3519,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  zoomSpeed: 0.35
-  maxScale: 0.7
   stationnaryDelay: 0.5
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
 --- !u!1 &7691196817518418608
 GameObject:
   m_ObjectHideFlags: 0
@@ -3608,3 +3612,4 @@ SceneRoots:
   - {fileID: 1363741180}
   - {fileID: 3701565098357826161}
   - {fileID: 2251668244488394127}
+  - {fileID: 6306505898970895914}
