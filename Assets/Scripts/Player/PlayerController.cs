@@ -18,6 +18,23 @@ public class PlayerController : MonoBehaviour
     private Wiimote wiimote;
     private bool isFiring;
 
+    [Tooltip("Sound effects")]
+    [SerializeField] private AudioSource Shoot_audiosource;
+    [SerializeField] private AudioClip[] Shoot_Sounds;
+    [Range(0.0f,3.0f)] public float volume= 1.0f;    
+
+    private void PlayShootRandomSound(){
+        AudioClip Shoot_Sounds = GetRandomClip();
+        Shoot_audiosource.PlayOneShot(Shoot_Sounds,volume);
+    }
+
+    private AudioClip GetRandomClip(){
+        return Shoot_Sounds[UnityEngine.Random.Range(0,Shoot_Sounds.Length)];
+        Shoot_audiosource.volume=Random.Range(0.02f,0.05f);
+        Shoot_audiosource.pitch=Random.Range(0.9f,1.2f);
+        
+    }
+
     void Start()
     {
         WiimoteManager.FindWiimotes();
@@ -84,6 +101,7 @@ public class PlayerController : MonoBehaviour
     {
         if (wiimote != null)
             SetRumble(true);
+            PlayShootRandomSound();
 
         enemiesManager.ProcessFire(pointer.position);
 

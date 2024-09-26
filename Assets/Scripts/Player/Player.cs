@@ -21,6 +21,30 @@ public class Player : MonoBehaviour
     private int health;
     private int currentMult;
 
+    [Tooltip("Sound effects")]
+    [SerializeField] private AudioSource Damaged_audiosource;
+    [SerializeField] private AudioClip[] Damaged_Sounds;
+    [Range(0.0f,3.0f)] public float volume= 1.0f;    
+    [SerializeField] private AudioClip[] Death_Sounds;
+
+    private void PlayDamagedRandomSound(){
+        AudioClip Damaged_Sounds = GetRandomClip();
+        Damaged_audiosource.PlayOneShot(Damaged_Sounds,volume);
+    }
+
+    
+    private void PlayDeathRandomSound(){
+        AudioClip Death_Sounds = GetRandomClip();
+        Damaged_audiosource.PlayOneShot(Death_Sounds,volume);
+    }
+
+    private AudioClip GetRandomClip(){
+        return Damaged_Sounds[UnityEngine.Random.Range(0,Damaged_Sounds.Length)];
+        Damaged_audiosource.volume=Random.Range(0.02f,0.05f);
+        Damaged_audiosource.pitch=Random.Range(0.9f,1.2f);
+        
+    }
+
     void Awake()
     {
         instance = this;
@@ -73,10 +97,12 @@ public class Player : MonoBehaviour
         ScrollerManager.instance.SetCurrentSpeed(0.5f);
         GameGUI.instance.SetHealthBarFill(health, maxHealth);
         animator.SetTrigger("Damage");
+        PlayDamagedRandomSound();
 
         if (health == 0)
         {
             GameManager.instance.SetCurrentScore(score);
+            PlayDeathRandomSound();
             GameManager.instance.GoToEndScene();
         }
     }
