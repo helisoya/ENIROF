@@ -5,33 +5,28 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] protected float speed;
-    [SerializeField] protected float zoomSpeed;
-    [SerializeField] protected float maxScale;
     [SerializeField] protected float stationnaryDelay;
+    [SerializeField] protected Rect bounds;
+    protected float speedFactor;
     protected Vector2 destination;
     protected bool waitNewDirection;
-    protected RectTransform rectTransform;
     protected EnemiesManager enemiesManager;
-    protected Canvas canvas;
-    public Canvas Canvas { set => canvas = value; }
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
         enemiesManager = FindAnyObjectByType<EnemiesManager>();
         waitNewDirection = false;
+        speedFactor = 0.5f;
         CalculateNewDestination();
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
-        // Calculer un facteur logarithmique
-        float logFactor = Mathf.Log10(1 + zoomSpeed * Time.deltaTime);
-        // Appliquer la mise a l'echelle logarithmique
-        rectTransform.localScale += Vector3.one * logFactor;
+        transform.position += ScrollerManager.instance.GetCurrentScrollSpeed() / speedFactor * Time.deltaTime * Vector3.left;
+        speedFactor += Time.deltaTime * 0.425f;
 
-        if (rectTransform.localScale.x > maxScale)
+        if (transform.position.x <= 0)
         {
             Player.instance.TakeDamage();
             enemiesManager.DestroyChildEnemy(this);
@@ -39,9 +34,11 @@ public class Enemy : MonoBehaviour
 
         if (waitNewDirection) return;
 
-        if (rectTransform.anchoredPosition.Equals(destination))
+        if (transform.position.z == destination.x && transform.position.y == destination.y)
             StartCoroutine(NewDirection());
-        rectTransform.anchoredPosition = Vector2.MoveTowards(rectTransform.anchoredPosition, destination, speed);
+        Vector2 newPos = Vector2.MoveTowards(new Vector2(transform.position.z, transform.position.y), destination, speed);
+
+        transform.position = new Vector3(transform.position.x, newPos.y, newPos.x);
     }
 
     protected virtual IEnumerator NewDirection()
@@ -56,12 +53,13 @@ public class Enemy : MonoBehaviour
     }
     protected virtual void CalculateNewDestination()
     {
+        Debug.Log("newpos");
         destination = new Vector2(
             Random.Range(
-                -canvas.renderingDisplaySize.x / 2.2f,
-                canvas.renderingDisplaySize.x / 2.2f),
+                -bounds.width / 2.0f,
+                bounds.width / 2.0f),
             Random.Range(
-                canvas.renderingDisplaySize.y / 16.0f,
-                canvas.renderingDisplaySize.y / 2.0f));
+                -bounds.height / 2.0f,
+                bounds.height / 2.0f));
     }
 }

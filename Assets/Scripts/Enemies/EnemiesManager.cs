@@ -11,8 +11,9 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] private WheelEye wheelEyePrefab;
     [SerializeField] private TriangleEye triangleEyePrefab;
     [SerializeField] private float spawnInterval = 5f; // Intervalle de spawn en secondes
-    [SerializeField] private Canvas frontCanvas; // Le Canvas avant
-    [SerializeField] private Canvas backCanvas; // Le Canvas arriere
+    [SerializeField] private PlayerMovements playerMovements;
+    [SerializeField] private Camera frontCamera;
+    [SerializeField] private Camera backCamera;
 
     private Enemy[] enemyPrefabs;
     private float timeSinceLastSpawn;
@@ -40,47 +41,29 @@ public class EnemiesManager : MonoBehaviour
 
         if (timeSinceLastSpawn >= spawnInterval)
         {
-            SpawnEnemy(EnemyType.TriangleEye);
+            SpawnEnemy(EnemyType.BasicEye);
             timeSinceLastSpawn = 0f;
         }
     }
 
     void SpawnEnemy(EnemyType enemyType = EnemyType.BasicEye)
     {
-        // Choisir le bon canvas en foncion du type d'ennemi
-        Canvas canvas = frontCanvas;
-        if (enemyType == EnemyType.WheelEye)
-            canvas = backCanvas;
-
         // Instancier l'ennemi dans le Canvas
-        Enemy enemyInstance = Instantiate(enemyPrefabs[(int)enemyType], canvas.GetComponent<RectTransform>());
-
-        // Definir le canvas de l'instance
-        enemyInstance.Canvas = canvas;
-
-        // Deplacer l'instance au debut des enfants du RectTransform
-        enemyInstance.transform.SetSiblingIndex(0);
+        Enemy enemyInstance = Instantiate(enemyPrefabs[(int)enemyType],transform);
 
         // Ajouter l'ennemi a la liste
         enemies.Add(enemyInstance);
-
-        // Recuperer le RectTransform de l'ennemi
-        RectTransform enemyRectTransform = enemyInstance.GetComponent<RectTransform>();
-
-        // Appliquer la position a l'ennemi
-        enemyRectTransform.anchoredPosition = new Vector2(0.0f, 0.0f);
     }
 
     public void ProcessFire(Vector2 pointerPos)
     {
-        foreach (Enemy enemy in enemies)
+        Camera camera = playerMovements.FiringFront ? frontCamera : backCamera;
+        Ray ray = camera.ScreenPointToRay(pointerPos);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 600, LayerMask.GetMask("Enemy"))) // Condition pour detruire
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(enemy.GetComponent<RectTransform>(), pointerPos, null)) // Condition pour detruire
-            {
-                Player.instance.AddScore(10);
-                DestroyChildEnemy(enemy);
-                break;
-            }
+            Player.instance.AddScore(10);
+            DestroyChildEnemy(hit.transform.GetComponent<Enemy>());
         }
 
     }
