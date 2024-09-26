@@ -1,26 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] private float zoomSpeed;
-    [SerializeField] private float maxScale;
-    [SerializeField] private Vector2 destination;
-    [SerializeField] private float maxDestinationDistance;
-    private RectTransform rectTransform;
-    private EnemiesManager enemiesManager;
-    private Canvas canvas;
-
-    private void Start()
+    [SerializeField] protected float speed;
+    [SerializeField] protected float zoomSpeed;
+    [SerializeField] protected float maxScale;
+    [SerializeField] private float stationnaryDelay;
+    protected Vector2 destination;
+    protected bool waitNewDirection;
+    protected RectTransform rectTransform;
+    protected EnemiesManager enemiesManager;
+    protected Canvas canvas;
+    public Canvas Canvas { set => canvas = value; }
+    // Start is called before the first frame update
+    protected virtual void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         enemiesManager = FindAnyObjectByType<EnemiesManager>();
-        canvas = FindAnyObjectByType<Canvas>();
+        waitNewDirection = false;
         CalculateNewDestination();
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         // Calculer un facteur logarithmique
         float logFactor = Mathf.Log10(1 + zoomSpeed * Time.deltaTime);
@@ -29,21 +33,31 @@ public class Enemy : MonoBehaviour
 
         if (rectTransform.localScale.x > maxScale)
             enemiesManager.DestroyChildEnemy(this);
+        if (waitNewDirection) return;
+
         if (rectTransform.anchoredPosition.Equals(destination))
-            CalculateNewDestination();
+            StartCoroutine(NewDirection());
         rectTransform.anchoredPosition = Vector2.MoveTowards(rectTransform.anchoredPosition, destination, speed);
     }
 
-    private void CalculateNewDestination()
+    protected IEnumerator NewDirection()
+    {
+        waitNewDirection = true;
+
+        yield return new WaitForSeconds(stationnaryDelay);
+
+        CalculateNewDestination();
+
+        waitNewDirection = false;
+    }
+    protected virtual void CalculateNewDestination()
     {
         destination = new Vector2(
-            Random.Range(-canvas.renderingDisplaySize.x/2.0f, canvas.renderingDisplaySize.x/2.0f),
-            Random.Range(0, canvas.renderingDisplaySize.y/2.0f));
-
-        // Si la magnitude actuelle est plus grande que 0.8f, la réduire
-        if ((rectTransform.anchoredPosition - destination).magnitude > maxDestinationDistance)
-        {
-            destination = rectTransform.anchoredPosition - (rectTransform.anchoredPosition - destination).normalized * maxDestinationDistance;
-        }
+            Random.Range(
+                -canvas.renderingDisplaySize.x / 2.2f,
+                canvas.renderingDisplaySize.x / 2.2f),
+            Random.Range(
+                canvas.renderingDisplaySize.y / 16.0f,
+                canvas.renderingDisplaySize.y / 2.0f));
     }
 }

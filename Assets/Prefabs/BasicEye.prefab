@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 988608985904864612}
   - component: {fileID: 4507390687511514236}
-  - component: {fileID: 3856894170711162489}
   - component: {fileID: 1181249168937662784}
+  - component: {fileID: 3856894170711162489}
   m_Layer: 5
-  m_Name: Enemy1
+  m_Name: BasicEye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,19 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b8391c839f1ac4db7b5dd2a35e386e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.75
-  zoomSpeed: 0.3
-  maxScale: 0.75
-  destination: {x: 0, y: 0}
-  maxDestinationDistance: 200
---- !u!222 &3856894170711162489
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3495239507832361470}
-  m_CullTransparentMesh: 1
+  speed: 3
+  zoomSpeed: 0.35
+  maxScale: 0.7
+  maxDestinationDistance: 30000
+  stationnaryDelay: 0.5
 --- !u!114 &1181249168937662784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,3 +85,11 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!222 &3856894170711162489
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3495239507832361470}
+  m_CullTransparentMesh: 1

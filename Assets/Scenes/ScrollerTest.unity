@@ -696,10 +696,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7cf8d444316d0e49bf1cf6246325034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 4507390687511514236, guid: 699d6f0d8415b5a4a914a80c3bdb9542,
+  basicEyePrefab: {fileID: 4507390687511514236, guid: 699d6f0d8415b5a4a914a80c3bdb9542,
     type: 3}
-  spawnInterval: 1
-  canvas: {fileID: 334287958}
+  wheelEyePrefab: {fileID: 2246322383117986768, guid: 7f5d334e5e6584f43b39c3fdcce5a60d,
+    type: 3}
+  spawnInterval: 0.5
+  frontCanvas: {fileID: 334287958}
+  backCanvas: {fileID: 1363741179}
 --- !u!4 &298752908
 Transform:
   m_ObjectHideFlags: 0
@@ -850,6 +853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointer: {fileID: 2013935871}
   fireLength: 0.1
+  fireCoolDown: 0.5
   enemiesManager: {fileID: 298752907}
 --- !u!4 &394525794
 Transform:

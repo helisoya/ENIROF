@@ -5,16 +5,22 @@ using UnityEngine;
 
 public class EnemiesManager : MonoBehaviour
 {
-    [SerializeField] private Enemy enemyPrefab; // Le prefab de l'ennemi (RectTransform)
-    [SerializeField] private float spawnInterval = 5f; // Intervalle de spawn en secondes
-    [SerializeField] private Canvas canvas; // Le transform du Canvas parent
+    enum EnemyType { BasicEye,WheelEye,TriangleEye,LongEye,Anomaly }
 
+    [SerializeField] private BasicEye basicEyePrefab;
+    [SerializeField] private WheelEye wheelEyePrefab;
+    [SerializeField] private float spawnInterval = 5f; // Intervalle de spawn en secondes
+    [SerializeField] private Canvas frontCanvas; // Le Canvas avant
+    [SerializeField] private Canvas backCanvas; // Le Canvas arriere
+
+    private Enemy[] enemyPrefabs;
     private float timeSinceLastSpawn;
     private List<Enemy> enemies;
 
     // Start is called before the first frame update
     void Start()
     {
+        enemyPrefabs = new Enemy[]{ basicEyePrefab, wheelEyePrefab };
         enemies = new List<Enemy>();
         timeSinceLastSpawn = 0f;
     }
@@ -26,26 +32,34 @@ public class EnemiesManager : MonoBehaviour
 
         if (timeSinceLastSpawn >= spawnInterval)
         {
-            SpawnEnemy();
+            SpawnEnemy(EnemyType.WheelEye);
             timeSinceLastSpawn = 0f;
         }
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(EnemyType enemyType = EnemyType.BasicEye)
     {
-        // Instancier l'ennemi dans le Canvas
-        Enemy enemyInstance = Instantiate(enemyPrefab, canvas.GetComponent<RectTransform>());
+        // Choisir le bon canvas en foncion du type d'ennemi
+        Canvas canvas = frontCanvas;
+        if(enemyType == EnemyType.WheelEye)
+            canvas = backCanvas;
 
-        // D�placer l'instance au d�but des enfants du RectTransform
+        // Instancier l'ennemi dans le Canvas
+        Enemy enemyInstance = Instantiate(enemyPrefabs[(int)enemyType], canvas.GetComponent<RectTransform>());
+
+        // Definir le canvas de l'instance
+        enemyInstance.Canvas = canvas;
+
+        // Deplacer l'instance au debut des enfants du RectTransform
         enemyInstance.transform.SetSiblingIndex(0);
 
-        // Ajouter l'ennemi � la liste
+        // Ajouter l'ennemi a la liste
         enemies.Add(enemyInstance);
 
-        // R�cup�rer le RectTransform de l'ennemi
+        // Recuperer le RectTransform de l'ennemi
         RectTransform enemyRectTransform = enemyInstance.GetComponent<RectTransform>();
 
-        // Appliquer la position � l'ennemi
+        // Appliquer la position a l'ennemi
         enemyRectTransform.anchoredPosition = new Vector2(0.0f, 0.0f);
     }
 
@@ -53,7 +67,7 @@ public class EnemiesManager : MonoBehaviour
     {
         foreach (Enemy enemy in enemies)
         {
-            if (RectTransformUtility.RectangleContainsScreenPoint(enemy.GetComponent<RectTransform>(), pointerPos, null)) // Condition pour d�truire
+            if (RectTransformUtility.RectangleContainsScreenPoint(enemy.GetComponent<RectTransform>(), pointerPos, null)) // Condition pour detruire
             {
                 DestroyChildEnemy(enemy);
                 break;
@@ -64,6 +78,6 @@ public class EnemiesManager : MonoBehaviour
     public void DestroyChildEnemy(Enemy enemy)
     {
         enemies.Remove(enemy); // Retirer de la liste
-        Destroy(enemy.gameObject); // D�truire l'objet
+        Destroy(enemy.gameObject); // Detruire l'objet
     }
 }
