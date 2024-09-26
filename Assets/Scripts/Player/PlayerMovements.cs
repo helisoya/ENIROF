@@ -34,6 +34,7 @@ public class PlayerMovements : MonoBehaviour
             (!firingFront && inputVec.y >= 0.9f))
         {
             firingFront = !firingFront;
+            GameGUI.instance.SetFrontPointerActive(firingFront);
             print("Toggle Firing");
         }
     }

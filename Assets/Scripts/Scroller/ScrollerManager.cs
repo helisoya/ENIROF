@@ -12,6 +12,8 @@ public class ScrollerManager : MonoBehaviour
     [SerializeField] private float scrollSpeed;
     [SerializeField] private float blockLength;
     [SerializeField] private int maxBlocks;
+    [SerializeField] private float accelSpeed = 20f;
+    private float currentScrollSpeed;
     private Vector3 direction = new Vector3(-1, 0, 0);
 
     void Start()
@@ -27,14 +29,29 @@ public class ScrollerManager : MonoBehaviour
         }
     }
 
+    public void SetCurrentSpeed(float percentage)
+    {
+        currentScrollSpeed = scrollSpeed * percentage;
+    }
+
+    public float GetCurrentScrollSpeed()
+    {
+        return currentScrollSpeed;
+    }
+
     void Update()
     {
+        if (currentScrollSpeed <= scrollSpeed)
+        {
+            currentScrollSpeed += accelSpeed * Time.deltaTime;
+        }
+
         Transform child;
         for (int i = 0; i < blocks.Length; i++)
         {
             child = blocks[i];
-            child.transform.position += direction * scrollSpeed * Time.deltaTime;
-            if (child.transform.position.x < -blockLength * 2)
+            child.transform.position += direction * currentScrollSpeed * Time.deltaTime;
+            if (child.transform.position.x < -blockLength * 3)
             {
                 child.transform.position += new Vector3(maxBlocks * blockLength, 0, 0);
             }
