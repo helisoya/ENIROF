@@ -5,7 +5,8 @@ using UnityEngine;
 public class ObstacleManager : MonoBehaviour
 {
     [Header("Infos")]
-    [SerializeField] private float cooldown;
+    [SerializeField] private float baseCooldown;
+    private float cooldown;
     private float cooldownStart;
     private float[] spawns = { -10, 0, 10 };
 
@@ -14,8 +15,20 @@ public class ObstacleManager : MonoBehaviour
     [SerializeField] private Obstacle obstaclePrefab;
     [SerializeField] private Sprite[] sprites;
 
+    float ComputeCooldownScale()
+    {
+        int score = GameManager.instance.currentScore;
+        if (score <= 100) return 1f;
+        if (score <= 250) return 0.75f;
+        if (score <= 500) return 0.5f;
+
+        return 1f;
+    }
+
     void Update()
     {
+        cooldown = baseCooldown * ComputeCooldownScale();
+
         if (Time.time - cooldownStart >= cooldown)
         {
             Obstacle obj = Instantiate(obstaclePrefab,
