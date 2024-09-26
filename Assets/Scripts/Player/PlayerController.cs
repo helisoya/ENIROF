@@ -11,8 +11,10 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private RectTransform pointer;
     [SerializeField] private float fireLength;
-    private float fireStart;
+    [SerializeField] private float fireCoolDown;
     [SerializeField] private EnemiesManager enemiesManager;
+    private float fireStart;
+    private float fireStop;
     private Image sprite;
     private Wiimote wiimote;
     private bool isFiring;
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
         if (isFiring && Time.time - fireStart >= fireLength)
         {
             isFiring = false;
+            fireStop = Time.time;
             sprite.color = Color.green;
             if (wiimote != null)
                 SetRumble(false);
@@ -46,7 +49,7 @@ public class PlayerController : MonoBehaviour
             float[] pointerCoo = wiimote.Ir.GetPointingPosition();
             SetPointerPosition(new Vector2(pointerCoo[0], pointerCoo[1]));
 
-            if (wiimote.Button.b && !isFiring)
+            if (wiimote.Button.b && !isFiring && Time.time - fireStop >= fireCoolDown)
                 Fire();
         }
     }
