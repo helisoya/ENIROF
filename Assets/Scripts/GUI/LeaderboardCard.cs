@@ -14,6 +14,6 @@ public class LeaderboardCard : MonoBehaviour
     {
         playerNameText.text = playerName;
         playerScoreText.text = score.ToString();
-        playerRankText.text = rank.ToString();
+        playerRankText.text = '#' + rank.ToString();
     }
 }

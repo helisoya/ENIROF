@@ -26,6 +26,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public List<LeaderBoardEntry> GetLeaderBoard()
+    {
+        return leaderboard.GetScoresRanked();
+    }
+
     public void SetCurrentScore(int score)
     {
         currentScore = score;
@@ -38,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToMainScene()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("ScrollerTest");
     }
 
     public void GoToEndScene()

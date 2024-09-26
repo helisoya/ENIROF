@@ -26,7 +26,17 @@ public class EndGUI : MonoBehaviour
 
     void InitLeaderBoard()
     {
+        List<LeaderBoardEntry> entries = GameManager.instance.GetLeaderBoard();
+        for (int i = 0; i < entries.Count; i++)
+        {
+            Instantiate(leaderboardCardPrefab, leaderboardRoot).GetComponent<LeaderboardCard>()
+                .Init(entries[i].playerName, entries[i].score, i + 1);
+        }
 
+        leaderboardRoot.GetComponent<RectTransform>().sizeDelta = new Vector2(
+            leaderboardRoot.GetComponent<RectTransform>().sizeDelta.x,
+            (leaderboardCardPrefab.GetComponent<RectTransform>().sizeDelta.y + 5) * entries.Count
+        );
     }
 
     public void Click_ToStartScene()
