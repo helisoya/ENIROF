@@ -11,6 +11,8 @@ public class GameGUI : MonoBehaviour
     [Header("Pointer")]
     [SerializeField] private RectTransform pointerBack;
     [SerializeField] private RectTransform pointerFront;
+    private Image pointerBackColor;
+    private Image pointerFrontColor;
     private bool pointerAtFront;
 
     [Header("Front")]
@@ -21,10 +23,15 @@ public class GameGUI : MonoBehaviour
     void Awake()
     {
         instance = this;
+
+        pointerBackColor = pointerBack.GetComponent<Image>();
+        pointerFrontColor = pointerFront.GetComponent<Image>();
+
         SetHealthBarFill(1, 1);
         SetScore(0);
         SetMult(1);
         SetFrontPointerActive(true);
+        SetPointerColor(Color.green);
     }
 
     public void SetHealthBarFill(float currentHP, float maxHP)
@@ -55,5 +62,11 @@ public class GameGUI : MonoBehaviour
         pointerFront.anchorMax = position;
         pointerBack.anchorMin = position;
         pointerBack.anchorMax = position;
+    }
+
+    public void SetPointerColor(Color color)
+    {
+        pointerFrontColor.color = color;
+        pointerBackColor.color = color;
     }
 }
