@@ -13,7 +13,6 @@ public class GameGUI : MonoBehaviour
     [SerializeField] private RectTransform pointerFront;
     private Image pointerBackColor;
     private Image pointerFrontColor;
-    private bool pointerAtFront;
 
     [Header("Front")]
     [SerializeField] private Image hpFill;
@@ -49,9 +48,8 @@ public class GameGUI : MonoBehaviour
         textMult.text = mult.ToString();
     }
 
-    public void SetFrontPointerActive(bool value)
+    public void SetFrontPointerActive(bool pointerAtFront)
     {
-        pointerAtFront = value;
         pointerBack.gameObject.SetActive(!pointerAtFront);
         pointerFront.gameObject.SetActive(pointerAtFront);
     }

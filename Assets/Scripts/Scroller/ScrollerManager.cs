@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ScrollerManager : MonoBehaviour
 {
+    public static ScrollerManager instance;
+
     [Header("Components")]
     [SerializeField] private Transform prefabBlock;
     private Transform[] blocks;
@@ -15,6 +17,11 @@ public class ScrollerManager : MonoBehaviour
     [SerializeField] private float accelSpeed = 20f;
     private float currentScrollSpeed;
     private Vector3 direction = new Vector3(-1, 0, 0);
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {

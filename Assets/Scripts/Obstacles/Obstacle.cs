@@ -16,7 +16,7 @@ public class Obstacle : MonoBehaviour
 
     void Update()
     {
-        transform.position += direction * GameManager.instance.GetScrollSpeed() * Time.deltaTime;
+        transform.position += direction * ScrollerManager.instance.GetCurrentScrollSpeed() * Time.deltaTime;
 
         if (transform.position.x <= 0)
         {
