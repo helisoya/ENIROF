@@ -28,6 +28,8 @@ public class GameGUI : MonoBehaviour
     [SerializeField] private AudioSource switch_audiosource;
     [SerializeField] private AudioClip[] switch_sounds;
     [Range(0.0f,3.0f)] public float volume= 1.0f;    
+    private bool hasGameStarted = false;
+
 
     private void PlaySwitchRandomSound(){
         AudioClip switch_sounds = GetRandomClip();
@@ -35,9 +37,9 @@ public class GameGUI : MonoBehaviour
     }
 
     private AudioClip GetRandomClip(){
-        return switch_sounds[UnityEngine.Random.Range(0,switch_sounds.Length)];
         switch_audiosource.volume=Random.Range(0.02f,0.05f);
         switch_audiosource.pitch=Random.Range(0.9f,1.2f);
+        return switch_sounds[UnityEngine.Random.Range(0,switch_sounds.Length)];
         
     }
 
@@ -53,6 +55,7 @@ public class GameGUI : MonoBehaviour
         SetMult(1);
         SetFrontPointerActive(true);
         SetPointerColor(Color.green);
+        hasGameStarted = true;
     }
 
     public void SetHealthBarFill(float currentHP, float maxHP)
@@ -74,7 +77,11 @@ public class GameGUI : MonoBehaviour
     {
         pointerBack.gameObject.SetActive(!pointerAtFront);
         pointerFront.gameObject.SetActive(pointerAtFront);
-        PlaySwitchRandomSound();
+        if (hasGameStarted)
+        {
+            PlaySwitchRandomSound();
+        }
+        
         Front_hidden.SetActive(pointerAtFront);   
         Back_hidden.SetActive(!pointerAtFront); 
 
