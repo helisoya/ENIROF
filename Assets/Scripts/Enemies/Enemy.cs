@@ -9,11 +9,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected Rect bounds;
     [SerializeField] protected bool onFront = true;
     [SerializeField] protected Vector3 spawPoint;
+    [SerializeField] protected float distanceToDie;
     protected Animator animator;
     protected float speedFactor;
     protected Vector2 destination;
     protected bool waitNewDirection;
     protected EnemiesManager enemiesManager;
+    protected bool isExploding = false;
+    protected bool isDying = false;
 
     public Vector3 SpawPoint { get => spawPoint; }
 
@@ -30,14 +33,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        transform.position += ScrollerManager.instance.GetCurrentScrollSpeed() / speedFactor * Time.deltaTime * (onFront?Vector3.left:Vector3.right);
-        speedFactor += Time.deltaTime * 0.425f;
+        if(isExploding || isDying) return;
 
-        if (onFront ? transform.position.x <= 0 : transform.position.x >= 0)
-        {
-            Player.instance.TakeDamage();
-            enemiesManager.DestroyChildEnemy(this);
-        }
+        transform.position += ScrollerManager.instance.GetCurrentScrollSpeed() / speedFactor * Time.deltaTime * (onFront?Vector3.left:Vector3.right);
+        speedFactor += Time.deltaTime * 0.45f;
+
+        if (Mathf.Abs(transform.position.x) <= distanceToDie)
+            StartCoroutine(Explode());
 
         if (waitNewDirection) return;
 
@@ -48,8 +50,31 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector3(transform.position.x, newPos.y, newPos.x);
     }
 
+    protected IEnumerator Explode()
+    {
+        isExploding = true;
+        animator.SetTrigger("Explode");
+        yield return new WaitForSeconds(1.5f);
+        Player.instance.TakeDamage();
+        Die();
+    }
+
+    public void Die()
+    {
+        isDying = true;
+        StartCoroutine(DieCoroutine());
+    }
+
+    protected IEnumerator DieCoroutine()
+    {
+        animator.SetTrigger("Die");
+        yield return new WaitForSeconds(0.5f);
+        enemiesManager.DestroyChildEnemy(this);
+    }
+
     protected virtual IEnumerator NewDirection()
     {
+        animator.SetBool("IsMoving", false);
         waitNewDirection = true;
 
         yield return new WaitForSeconds(stationnaryDelay);
@@ -57,6 +82,7 @@ public class Enemy : MonoBehaviour
         CalculateNewDestination();
 
         waitNewDirection = false;
+        animator.SetBool("IsMoving", true);
     }
     protected virtual void CalculateNewDestination()
     {
@@ -65,7 +91,7 @@ public class Enemy : MonoBehaviour
                 -bounds.width / 2.0f,
                 bounds.width / 2.0f),
             Random.Range(
-                0.0f,
+                bounds.height / 8.0f,
                 bounds.height / 2.0f));
     }
 }
