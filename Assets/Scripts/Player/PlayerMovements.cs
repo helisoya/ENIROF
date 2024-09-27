@@ -44,6 +44,8 @@ public class PlayerMovements : MonoBehaviour
 
     void Update()
     {
+        if (Player.instance.waitingStart) return;
+
         float targetAngle = input * maxTurnAngle;
 
         if (Mathf.Abs(targetAngle - currentAngle) >= 0.1)

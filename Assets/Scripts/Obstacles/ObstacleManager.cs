@@ -18,12 +18,13 @@ public class ObstacleManager : MonoBehaviour
     float ComputeCooldownScale()
     {
         int score = GameManager.instance.currentScore;
+        print(score);
         if (score <= 100) return 1f;
         if (score <= 250) return 0.75f;
         if (score <= 500) return 0.5f;
-        if (score <= 750) return 0.25f;
+        if (score <= 750) return 0.3f;
 
-        return 1f;
+        return 0.2f;
     }
 
     void Update()
@@ -31,11 +32,12 @@ public class ObstacleManager : MonoBehaviour
         if (Player.instance.waitingStart) return;
 
         cooldown = baseCooldown * ComputeCooldownScale();
+        print(cooldown);
 
         if (Time.time - cooldownStart >= cooldown)
         {
             Obstacle obj = Instantiate(obstaclePrefab,
-                new Vector3(250, 5f, spawns[Random.Range(0, spawns.Length)]),
+                new Vector3(500, 3.5f, spawns[Random.Range(0, spawns.Length)]),
                 Quaternion.Euler(0, 90, 0),
                 transform
             );

@@ -6,12 +6,14 @@ public class Obstacle : MonoBehaviour
 {
     [Header("Infos")]
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private int distanceToPlayerRequiredToHit;
     private Vector3 direction = new Vector3(-1, 0, 0);
+
+    private bool dealtDamageToPlayer = false;
 
     public void Init(Sprite sprite)
     {
         spriteRenderer.sprite = sprite;
+        dealtDamageToPlayer = false;
     }
 
     void Update()
@@ -20,16 +22,19 @@ public class Obstacle : MonoBehaviour
 
         if (transform.position.x <= 0)
         {
-            float distToPlayer = Mathf.Abs(Player.instance.GetBodyZ() - transform.position.z);
-            if (distToPlayer <= distanceToPlayerRequiredToHit)
-            {
-                Player.instance.TakeDamage();
-            }
-            else
+            if (!dealtDamageToPlayer)
             {
                 Player.instance.IncrementMult();
             }
             Destroy(gameObject);
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (dealtDamageToPlayer) return;
+
+        Player.instance.TakeDamage();
+        dealtDamageToPlayer = true;
     }
 }
