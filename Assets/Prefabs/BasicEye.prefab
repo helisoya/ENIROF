@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -5344078447817153466}
   - component: {fileID: -7445046983237798676}
   - component: {fileID: 6734063656817257084}
+  - component: {fileID: 8226160084989591480}
   m_Layer: 3
   m_Name: BasicEye
   m_TagString: Untagged
@@ -99,7 +100,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 05fec63b1466f984a8c7cb6bba071fec, type: 3}
+  m_Sprite: {fileID: -1186061832, guid: b94b468212ffcbc4d9d4cecde9e09a85, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -129,8 +130,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.000001, y: 5, z: 0.20000005}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.4653049, y: 4.3925605, z: 0.20000005}
+  m_Center: {x: -0.6175658, y: 0.35365042, z: 3.6903074e-15}
 --- !u!82 &-7445046983237798676
 AudioSource:
   m_ObjectHideFlags: 0
@@ -325,3 +326,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &8226160084989591480
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5930617219829857548}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b0bdb295bf8ba4748be614de20604993, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

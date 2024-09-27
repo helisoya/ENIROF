@@ -75,7 +75,7 @@ public class EnemiesManager : MonoBehaviour
 
         if (timeSinceLastSpawn >= spawnInterval)
         {
-            SpawnEnemy(EnemyType.TriangleEye);
+            SpawnEnemy(GetRandomEnemyType());
             timeSinceLastSpawn = 0f;
         }
     }
