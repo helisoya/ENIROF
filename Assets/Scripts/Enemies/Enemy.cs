@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual IEnumerator NewDirection()
     {
+        animator.SetBool("IsMoving", false);
         waitNewDirection = true;
 
         yield return new WaitForSeconds(stationnaryDelay);
@@ -57,6 +58,7 @@ public class Enemy : MonoBehaviour
         CalculateNewDestination();
 
         waitNewDirection = false;
+        animator.SetBool("IsMoving", true);
     }
     protected virtual void CalculateNewDestination()
     {

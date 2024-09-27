@@ -100,8 +100,7 @@ public class EnemiesManager : MonoBehaviour
     {
         Camera camera = playerMovements.FiringFront ? frontCamera : backCamera;
         Ray ray = camera.ScreenPointToRay(pointerPos);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 600, LayerMask.GetMask("Enemy"))) // Condition pour detruire
+        if (Physics.Raycast(ray, out RaycastHit hit, 600, LayerMask.GetMask("Enemy"))) // Condition pour detruire
         {
             Player.instance.AddScore(10);
             PlayRandomScoreSound();
