@@ -21,6 +21,7 @@ public class ObstacleManager : MonoBehaviour
         if (score <= 100) return 1f;
         if (score <= 250) return 0.75f;
         if (score <= 500) return 0.5f;
+        if (score <= 750) return 0.25f;
 
         return 1f;
     }
