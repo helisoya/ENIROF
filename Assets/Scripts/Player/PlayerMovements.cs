@@ -45,7 +45,7 @@ public class PlayerMovements : MonoBehaviour
 
     void Update()
     {
-        if (!Player.instance.waitingStart) return;
+        if (Player.instance.waitingStart) return;
 
         float targetAngle = input * maxTurnAngle;
 

@@ -35,7 +35,7 @@ public class ObstacleManager : MonoBehaviour
         if (Time.time - cooldownStart >= cooldown)
         {
             Obstacle obj = Instantiate(obstaclePrefab,
-                new Vector3(500, 5f, spawns[Random.Range(0, spawns.Length)]),
+                new Vector3(500, 3.5f, spawns[Random.Range(0, spawns.Length)]),
                 Quaternion.Euler(0, 90, 0),
                 transform
             );
