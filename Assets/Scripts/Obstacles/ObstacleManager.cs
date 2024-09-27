@@ -18,7 +18,6 @@ public class ObstacleManager : MonoBehaviour
     float ComputeCooldownScale()
     {
         int score = GameManager.instance.currentScore;
-        print(score);
         if (score <= 100) return 1f;
         if (score <= 250) return 0.75f;
         if (score <= 500) return 0.5f;
@@ -32,8 +31,6 @@ public class ObstacleManager : MonoBehaviour
         if (Player.instance.waitingStart) return;
 
         cooldown = baseCooldown * ComputeCooldownScale();
-        print(cooldown);
-
         if (Time.time - cooldownStart >= cooldown)
         {
             Obstacle obj = Instantiate(obstaclePrefab,

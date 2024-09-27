@@ -1724,7 +1724,7 @@ MonoBehaviour:
     type: 3}
   scrollSpeed: 100
   blockLength: 200
-  maxBlocks: 5
+  maxBlocks: 4
   accelSpeed: 20
 --- !u!4 &652716553
 Transform:
