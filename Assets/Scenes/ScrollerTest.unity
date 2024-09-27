@@ -1753,7 +1753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c70220fc3aea70b44ba5bdfe2560ce5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseCooldown: 15
+  baseCooldown: 6
   obstaclePrefab: {fileID: 5399062430285695243, guid: 3c964cc1d310e6748b9e4ede49fa6305,
     type: 3}
   sprites:

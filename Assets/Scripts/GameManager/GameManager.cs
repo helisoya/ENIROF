@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             currentUsername = "Felix";
-            currentScore = 666;
+            currentScore = 0;
             leaderboard = new LeaderBoardManager();
             DontDestroyOnLoad(gameObject);
         }
