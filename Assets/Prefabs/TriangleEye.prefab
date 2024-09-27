@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edfb94cdc52e4a04daafe6e7e29e57cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
-  stationnaryDelay: 0.7
+  speed: 0.2
+  stationnaryDelay: 1
   bounds:
     serializedVersion: 2
     x: -20
