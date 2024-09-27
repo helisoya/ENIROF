@@ -57,6 +57,7 @@ MonoBehaviour:
     height: 0
   onFront: 0
   spawPoint: {x: -600, y: 4.5, z: 0}
+  distanceToDie: 30
 --- !u!212 &7813668453708658659
 SpriteRenderer:
   m_ObjectHideFlags: 0

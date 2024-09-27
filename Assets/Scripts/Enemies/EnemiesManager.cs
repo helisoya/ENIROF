@@ -25,33 +25,8 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] private AudioClip[] Enemy_death_Sounds;
     [Range(0.0f,3.0f)] public float volume= 1.0f;    
 
-        [SerializeField] private AudioSource Score_Audiosource;
+    [SerializeField] private AudioSource Score_Audiosource;
     [SerializeField] private AudioClip[] Score_Sounds;
-
-
-    private void PlayEnemyRandomDeathSound(){
-        AudioClip Enemy_death_Sounds = GetRandomClip();
-        Enemy_Audiosource.PlayOneShot(Enemy_death_Sounds,volume);
-    }
-
-        private void PlayRandomScoreSound(){
-        AudioClip Score_Sounds = GetRandomClipScore();
-        Score_Audiosource.PlayOneShot(Score_Sounds,volume);
-    }
-
-        private AudioClip GetRandomClipScore(){
-        return Score_Sounds[UnityEngine.Random.Range(0,Enemy_death_Sounds.Length)];
-        Score_Audiosource.volume=UnityEngine.Random.Range(0.02f,0.05f);
-        Score_Audiosource.pitch=UnityEngine.Random.Range(0.9f,2f);
-        
-    }
-
-    private AudioClip GetRandomClip(){
-        return Enemy_death_Sounds[UnityEngine.Random.Range(0,Enemy_death_Sounds.Length)];
-        Enemy_Audiosource.volume=UnityEngine.Random.Range(0.02f,0.05f);
-        Enemy_Audiosource.pitch=UnityEngine.Random.Range(0.7f,1.8f);
-        
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -80,6 +55,33 @@ public class EnemiesManager : MonoBehaviour
         }
     }
 
+
+    private void PlayEnemyRandomDeathSound()
+    {
+        AudioClip Enemy_death_Sounds = GetRandomClip();
+        Enemy_Audiosource.PlayOneShot(Enemy_death_Sounds,volume);
+    }
+
+    private void PlayRandomScoreSound()
+    {
+        AudioClip Score_Sounds = GetRandomClipScore();
+        Score_Audiosource.PlayOneShot(Score_Sounds,volume);
+    }
+
+    private AudioClip GetRandomClipScore()
+    {
+        Score_Audiosource.volume=UnityEngine.Random.Range(0.02f,0.05f);
+        Score_Audiosource.pitch=UnityEngine.Random.Range(0.9f,2f);
+        return Score_Sounds[UnityEngine.Random.Range(0,Enemy_death_Sounds.Length)];
+    }
+
+    private AudioClip GetRandomClip()
+    {
+        Enemy_Audiosource.volume=UnityEngine.Random.Range(0.02f,0.05f);
+        Enemy_Audiosource.pitch=UnityEngine.Random.Range(0.7f,1.8f);
+        return Enemy_death_Sounds[UnityEngine.Random.Range(0,Enemy_death_Sounds.Length)];
+    }
+
     private EnemyType GetRandomEnemyType()
     {
         return (EnemyType)UnityEngine.Random.Range(0, enemyPrefabs.Length);
@@ -105,7 +107,7 @@ public class EnemiesManager : MonoBehaviour
             Player.instance.AddScore(10);
             PlayRandomScoreSound();
             PlayEnemyRandomDeathSound();
-            DestroyChildEnemy(hit.transform.GetComponent<Enemy>());
+            hit.transform.GetComponent<Enemy>().Die();
         }
 
     }
