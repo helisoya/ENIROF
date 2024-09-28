@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     private float startWaitTime;
     public bool waitingStart { get; private set; }
 
-    private int score;
+    public int score { get; private set; }
     private int health;
     private int currentMult;
 

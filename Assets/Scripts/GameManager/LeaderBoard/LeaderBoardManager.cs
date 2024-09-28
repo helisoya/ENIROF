@@ -37,7 +37,7 @@ public class LeaderBoardManager
             top.Add(leaderboard.entries[i]);
         }
 
-        return leaderboard.entries;
+        return top;
     }
 
     public void AddScore(string playerName, int score)

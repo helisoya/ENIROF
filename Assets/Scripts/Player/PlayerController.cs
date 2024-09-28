@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             isFiring = false;
             fireStop = Time.time;
-            GameGUI.instance.SetPointerColor(Color.green);
+            GameGUI.instance.SetPointerColor(false);
             if (wiimote != null)
                 SetRumble(false);
         }
@@ -105,7 +105,7 @@ public class PlayerController : MonoBehaviour
 
         enemiesManager.ProcessFire(pointer.position);
 
-        GameGUI.instance.SetPointerColor(Color.red);
+        GameGUI.instance.SetPointerColor(true);
         fireStart = Time.time;
         isFiring = true;
     }

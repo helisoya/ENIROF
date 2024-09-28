@@ -19,8 +19,11 @@ public class EnemiesManager : MonoBehaviour
     private float timeSinceLastSpawn;
     private List<Enemy> enemies;
 
+    [Header("Scale")]
+    [SerializeField] private ObstacleScaling[] scalings;
 
-    [Tooltip("Sound effects")]
+
+    [Header("Sound effects")]
     [SerializeField] private AudioSource Enemy_Audiosource;
     [SerializeField] private AudioClip[] Enemy_death_Sounds;
     [Range(0.0f,3.0f)] public float volume= 1.0f;    
@@ -41,6 +44,23 @@ public class EnemiesManager : MonoBehaviour
         timeSinceLastSpawn = 0f;
     }
 
+    float ComputeCooldownScale()
+    {
+        int score = Player.instance.score;
+        foreach (ObstacleScaling scaling in scalings)
+        {
+            if (score <= scaling.scoreUnder)
+            {
+                return scaling.scaleFactor;
+            }
+        }
+
+
+        return 1.0f;
+
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -48,7 +68,7 @@ public class EnemiesManager : MonoBehaviour
 
         timeSinceLastSpawn += Time.deltaTime;
 
-        if (timeSinceLastSpawn >= spawnInterval)
+        if (timeSinceLastSpawn >= spawnInterval * ComputeCooldownScale())
         {
             SpawnEnemy(GetRandomEnemyType());
             timeSinceLastSpawn = 0f;

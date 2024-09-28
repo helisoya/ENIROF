@@ -11,6 +11,8 @@ public class GameGUI : MonoBehaviour
     [Header("Pointer")]
     [SerializeField] private RectTransform pointerBack;
     [SerializeField] private RectTransform pointerFront;
+    [SerializeField] private Color pointerDefaultColor = Color.green;
+    [SerializeField] private Color pointerFireColor = Color.red;
     private Image pointerBackColor;
     private Image pointerFrontColor;
 
@@ -54,7 +56,7 @@ public class GameGUI : MonoBehaviour
         SetScore(0);
         SetMult(1);
         SetFrontPointerActive(true);
-        SetPointerColor(Color.green);
+        SetPointerColor(false);
         hasGameStarted = true;
     }
 
@@ -97,8 +99,9 @@ public class GameGUI : MonoBehaviour
         pointerBack.anchorMax = position;
     }
 
-    public void SetPointerColor(Color color)
+    public void SetPointerColor(bool isFiring)
     {
+        Color color = isFiring ? pointerFireColor : pointerDefaultColor;
         pointerFrontColor.color = color;
         pointerBackColor.color = color;
     }

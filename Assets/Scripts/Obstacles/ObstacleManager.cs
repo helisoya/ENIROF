@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class ObstacleScaling
+{
+    public int scoreUnder;
+    public float scaleFactor;
+}
+
 public class ObstacleManager : MonoBehaviour
 {
     [Header("Infos")]
@@ -10,6 +17,9 @@ public class ObstacleManager : MonoBehaviour
     private float cooldownStart;
     private float[] spawns = { -10, 0, 10 };
 
+    [Header("Scale")]
+    [SerializeField] private ObstacleScaling[] scalings;
+
 
     [Header("Components")]
     [SerializeField] private Obstacle obstaclePrefab;
@@ -17,13 +27,19 @@ public class ObstacleManager : MonoBehaviour
 
     float ComputeCooldownScale()
     {
-        int score = GameManager.instance.currentScore;
-        if (score <= 100) return 1f;
-        if (score <= 250) return 0.75f;
-        if (score <= 500) return 0.5f;
-        if (score <= 750) return 0.3f;
+        int score = Player.instance.score;
+        foreach(ObstacleScaling scaling in scalings)
+        {
+            if(score <= scaling.scoreUnder)
+            {
+                return scaling.scaleFactor;
+            }
+        }
 
-        return 0.2f;
+
+        return 1.0f;
+
+
     }
 
     void Update()
