@@ -90,15 +90,13 @@ public class EnemiesManager : MonoBehaviour
 
     private AudioClip GetRandomClipScore()
     {
-        Score_Audiosource.volume=UnityEngine.Random.Range(0.02f,0.05f);
-        Score_Audiosource.pitch=UnityEngine.Random.Range(0.9f,2f);
+        Score_Audiosource.pitch=UnityEngine.Random.Range(0.9f,1.3f);
         return Score_Sounds[UnityEngine.Random.Range(0,Enemy_death_Sounds.Length)];
     }
 
     private AudioClip GetRandomClip()
     {
-        Enemy_Audiosource.volume=UnityEngine.Random.Range(0.02f,0.05f);
-        Enemy_Audiosource.pitch=UnityEngine.Random.Range(0.7f,1.8f);
+        Enemy_Audiosource.pitch=UnityEngine.Random.Range(0.7f,1.4f);
         return Enemy_death_Sounds[UnityEngine.Random.Range(0,Enemy_death_Sounds.Length)];
     }
 

@@ -24,7 +24,10 @@ public class GameGUI : MonoBehaviour
 
 
     [SerializeField] private GameObject Front_hidden; 
-    [SerializeField] private GameObject Back_hidden; 
+    [SerializeField] private GameObject Back_hidden;
+
+    public Dissolve dissolveScript_front;
+    public Dissolve dissolveScript_back;
 
     [Tooltip("Sound effects")]
     [SerializeField] private AudioSource switch_audiosource;
@@ -39,7 +42,6 @@ public class GameGUI : MonoBehaviour
     }
 
     private AudioClip GetRandomClip(){
-        switch_audiosource.volume=Random.Range(0.02f,0.05f);
         switch_audiosource.pitch=Random.Range(0.9f,1.2f);
         return switch_sounds[UnityEngine.Random.Range(0,switch_sounds.Length)];
         
@@ -83,9 +85,12 @@ public class GameGUI : MonoBehaviour
         {
             PlaySwitchRandomSound();
         }
-        
-        Front_hidden.SetActive(pointerAtFront);   
-        Back_hidden.SetActive(!pointerAtFront); 
+
+        Front_hidden.SetActive(pointerAtFront);
+        Back_hidden.SetActive(!pointerAtFront);
+
+        dissolveScript_back.ToggleDissolve(!pointerAtFront);
+        dissolveScript_front.ToggleDissolve(pointerAtFront);
 
 
 
